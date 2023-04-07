@@ -1,0 +1,60 @@
+<!-- <h2> chatroom  {{idChatroom }} Users :</h2>
+<div *ngFor=" let x of usersList">
+  {{x.username}}
+</div> -->
+<!--
+<h3>add User</h3>
+<input [(ngModel)]="inputValue" placeholder="enter your userID">
+<button type="button" mat-raised-button color="accent" (click)="addUserToChatroom(1,idChatroom!)"> send Message</button> -->
+  <!-- messages + input container -->
+<div class="col-md-6 col-lg-8 col-xl-8">
+<div class="pt-3 pe-3" data-mdb-perfect-scrollbar="true"
+style="position: relative; height: 400px">
+ <!-- messages component -->
+<div *ngFor="let message of messageList ">
+<!-- message card sent by other users -->
+<div *ngIf="sender!=message.sender.id  ; else showSentByUser">
+<div class="d-flex flex-row justify-content-start">
+  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+    alt="avatar 1" style="width: 45px; height: 100%;">
+  <div>
+    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">
+     {{message.content}}
+    </p>
+    <p class="small ms-3 mb-3 rounded-3 text-muted float-end">{{message.sentAt | date : 'shortTime'}} | {{message.sentAt | date : 'MMM dd'}}</p>
+  </div>
+</div>
+</div>
+ <!-- message card sent by you -->
+ <ng-template #showSentByUser>
+  <div class="d-flex flex-row justify-content-end">
+    <div>
+      <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">
+        {{message.content}}
+      </p>
+      <p class="small me-3 mb-3 rounded-3 text-muted"> {{message.sentAt | date : 'shortTime'}} | {{message.sentAt | date : 'MMM dd'}}</p>
+    </div>
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+      alt="avatar 1" style="width: 45px; height: 100%;">
+  </div>
+ </ng-template>
+</div>
+</div>
+                <!-- inpuuuttt -->
+                <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                    alt="avatar 3" style="width: 40px; height: 100%;">
+                  <input [(ngModel)]="inputSendMessage" type="text" class="form-control form-control-lg" id="exampleFormControlInput2"
+                    placeholder="Type message">
+                    <button type="button" class="btn  ">
+                      <i class="bi bi-paperclip"></i>
+                    </button>
+                    <button  type="button" class="btn btn-primary" (click)="sendMessage(idChatroom!,{'content':inputSendMessage})">
+                      <i class="bi bi-send"></i>
+                    </button>
+
+                  <!-- <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
+                  <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a>
+                  <a class="ms-3" href="#!"><i class="fas fa-paper-plane"></i></a> -->
+                </div>
+</div>
