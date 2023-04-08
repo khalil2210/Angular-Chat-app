@@ -36,11 +36,9 @@ getMessagesBychatroom(idChatroom: number){
 
 sendMessage(idChatroom:number,message:any){
   this.apiService.sendMessage(idChatroom,message).subscribe({
-    next:(res:any)=>{
-     console.log(res);
-    },
+    next:(message:any)=>{
+      this.messageList.push(message)},
     complete:()=>{
-    this.messageList.push(message)
     this.inputSendMessage=''}
   })
 }

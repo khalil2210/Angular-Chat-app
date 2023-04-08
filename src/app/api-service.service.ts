@@ -26,12 +26,12 @@ deleteChatroom(chatroomId:number){
 ///missing the senderId
 sendMessage(chatroomId:number,message:any){
   const url='http://localhost:8090/message/addMessage'
-    const headers= new HttpHeaders({
+    const headers= new HttpHeaders(
+      {
       'Content-Type': 'application/json'
     });
   const params = new HttpParams()
   .set('chatroomId', chatroomId)
-  //.set('senderId',JSON.stringify({'id':1,'username':'khalil'}))  ;
   return this.http.post(url, message,{params:params,headers:headers});
 }
 

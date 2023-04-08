@@ -25,38 +25,22 @@ this.apiService.getChatrooms().subscribe({
   next:(chatrooms:any)=>{
     this.chatroomList=chatrooms
   },
-  complete:()=>console.log("completed")
 })
 }
 
 addChatroom(chatroom:any){
   this.apiService.addChatroom(chatroom).subscribe({
     next:(res:any)=>{
-     console.log(res);
-    },
-    complete:()=>{this.chatroomList.push(chatroom),
-      console.log(this.chatroomList);
+      this.chatroomList.push(res)},
+    complete:()=>{
       this.inputValue=''
-}
+      }
 })
 
 }
 
 deleteChatroom(chatroomId:number,index:number){
   this.apiService.deleteChatroom(chatroomId).subscribe({
-    next:(res:any)=>{
-     console.log(res);
-    },
-    complete:()=>this.chatroomList.splice(index,1)
-  })
-
+    complete:()=>this.chatroomList.splice(index,1)})
 }
-
-selectChatroom(chatroom:any){
-  this.selectChatroom=chatroom
-console.log(this.selectChatroom);
-
-
-}
-
 }
