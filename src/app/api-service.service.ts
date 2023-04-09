@@ -23,7 +23,7 @@ deleteChatroom(chatroomId:number){
     return this.http.delete('http://localhost:8090/chatroom/deleteChatroom/'+chatroomId)
   }
 
-///missing the senderId
+
 sendMessage(chatroomId:number,message:any){
   const url='http://localhost:8090/message/addMessage'
     const headers= new HttpHeaders(
@@ -71,4 +71,6 @@ removeUserFromChatroom(userId:number,chatroomId:number){
 getUserById(userId:number){
 
 }
+
+
 }

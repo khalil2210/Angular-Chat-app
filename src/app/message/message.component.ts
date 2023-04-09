@@ -1,8 +1,7 @@
-import { HttpParams } from '@angular/common/http';
+import { StompClientService } from './../stomp-client.service';
 import { Component, Input } from '@angular/core';
 import { ApiServiceService } from '../api-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-message',
@@ -14,9 +13,13 @@ export class MessageComponent {
   idChatroom?:number;
   sender:number=1;
   inputSendMessage:String='';
-  usersList:any[]=[];//to be move to chatroom
   @Input() chatroom:any;
-  constructor(private apiService:ApiServiceService,private route: ActivatedRoute){}
+  constructor(
+  private apiService:ApiServiceService,
+  private route: ActivatedRoute,
+  private stompClientService:StompClientService)
+  {}
+
   ngOnInit(): void {
   this.route.params.subscribe(params=>{
   let chatroomId =params["chatroomId"];
@@ -30,7 +33,7 @@ getMessagesBychatroom(idChatroom: number){
   this.idChatroom=idChatroom;
   this.apiService.getMesaagesByChatroom(idChatroom).subscribe(data=>{
   this.messageList=data;
-  console.log(this.messageList)
+
 })
 }
 
@@ -48,10 +51,8 @@ sendMessage(idChatroom:number,message:any){
 getAllUsersByChatroom(chatroomId:number){
   this.apiService.getAllusersByChatroom(chatroomId).subscribe({
     next:(res:any)=>{
-     console.log(res);
-     this.usersList=res;
     },
-    complete:()=>{console.log('completed');}
+    complete:()=>{}
   })
 }
 
@@ -60,10 +61,13 @@ getAllUsersByChatroom(chatroomId:number){
 addUserToChatroom(senderId:number,chatroomId:number){
   this.apiService.addUserToChatroom(senderId,chatroomId).subscribe({
     next:(res:any)=>{
-     console.log(res);
     },
-    complete:()=>{console.log('completed');}
+    complete:()=>{}
   })
 }
 
+
+sendMessageWebSocket(message:any,chatroomId:number){
+this.stompClientService.sendMessage(message,chatroomId)
+}
 }

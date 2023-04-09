@@ -11,14 +11,14 @@ import {MatButtonModule} from '@angular/material/button';
 import { MessageComponent } from './message/message.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ChatroomUsersComponent } from './chatroom-users/chatroom-users.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     ObservableComponent,
     ChatComponent,
     MessageComponent,
-    ChatroomUsersComponent,
+
 
   ],
   imports: [

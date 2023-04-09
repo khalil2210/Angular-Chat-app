@@ -19,7 +19,6 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
   this.getChatrooms();}
 
-
 getChatrooms(){
 this.apiService.getChatrooms().subscribe({
   next:(chatrooms:any)=>{

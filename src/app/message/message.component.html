@@ -38,14 +38,21 @@ style="position: relative; height: 400px">
   placeholder="Type message">
 <button type="button" class="btn mx-1">
 <i class="bi bi-paperclip"></i></button>
-<button type="button" class="btn btn-primary" (click)="sendMessage(idChatroom!,{
-  'content':inputSendMessage,
-  'sender':
+<button type="button" class="btn btn-primary" (click)="sendMessageWebSocket(
   {
-    'id':2
-  }
-  }
-    )">
+  'content':inputSendMessage,
+  'sender':{'id':1}
+},
+  idChatroom!)">
 <i class="bi bi-send"></i></button>
 
 </div>
+
+
+
+
+
+
+
+
+
