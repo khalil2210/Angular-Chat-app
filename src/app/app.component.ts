@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.stompClientService.connect()
+  //  this.stompClientService.connect()
   }
   title = 'PiDev';
 

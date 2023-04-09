@@ -3,6 +3,10 @@ import { Component, Input } from '@angular/core';
 import { ApiServiceService } from '../api-service.service';
 import { ActivatedRoute } from '@angular/router';
 
+import { Stomp } from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
+
+
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -19,9 +23,18 @@ export class MessageComponent {
   private route: ActivatedRoute,
   private stompClientService:StompClientService)
   {}
+  private stompClient:any ;
 
   ngOnInit(): void {
   this.route.params.subscribe(params=>{
+    var socket = new SockJS('http://localhost:8090/ws-websocket');
+    this.stompClient = Stomp.over(socket);
+    this.stompClient.connect({}, (frame:any) => {
+    this.stompClient.subscribe('/chatroom/'+this.idChatroom, (greeting:any)=>
+    {
+     this.messageList.push(JSON.parse(greeting.body))
+    });
+      });
   let chatroomId =params["chatroomId"];
   this.getMessagesBychatroom(chatroomId);
   this.getAllUsersByChatroom(chatroomId);
@@ -37,14 +50,16 @@ getMessagesBychatroom(idChatroom: number){
 })
 }
 
-sendMessage(idChatroom:number,message:any){
-  this.apiService.sendMessage(idChatroom,message).subscribe({
-    next:(message:any)=>{
-      this.messageList.push(message)},
-    complete:()=>{
-    this.inputSendMessage=''}
-  })
-}
+
+//no longer needed
+// sendMessage(idChatroom:number,message:any){
+//   this.apiService.sendMessage(idChatroom,message).subscribe({
+//     next:(message:any)=>{
+//       this.messageList.push(message)},
+//     complete:()=>{
+//     this.inputSendMessage=''}
+//   })
+// }
 
 
 //to be moved to chatroom works
@@ -68,6 +83,12 @@ addUserToChatroom(senderId:number,chatroomId:number){
 
 
 sendMessageWebSocket(message:any,chatroomId:number){
-this.stompClientService.sendMessage(message,chatroomId)
+this.stompClient.send("/app/sendMessageToChatroom/" +chatroomId, {},
+JSON.stringify(message));
+this.inputSendMessage=''
+
+
 }
+
+
 }
