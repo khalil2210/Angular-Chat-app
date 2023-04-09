@@ -17,11 +17,9 @@ export class MessageComponent {
   idChatroom?:number;
   sender:number=1;
   inputSendMessage:String='';
-  @Input() chatroom:any;
   constructor(
   private apiService:ApiServiceService,
-  private route: ActivatedRoute,
-  private stompClientService:StompClientService)
+  private route: ActivatedRoute,)
   {}
   private stompClient:any ;
 
@@ -86,8 +84,6 @@ sendMessageWebSocket(message:any,chatroomId:number){
 this.stompClient.send("/app/sendMessageToChatroom/" +chatroomId, {},
 JSON.stringify(message));
 this.inputSendMessage=''
-
-
 }
 
 
